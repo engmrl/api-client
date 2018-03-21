@@ -24,6 +24,8 @@ class CommentFilterRequest extends FilterRequest
 
     const INCLUDE_PARENT_COMMENT = 'parentComment';
 
+    const INCLUDE_CHILD_COMMENTS = 'childComments';
+
     public function getEndpoint()
     {
         return $this->endpoint;

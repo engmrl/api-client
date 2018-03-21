@@ -2,6 +2,7 @@
 
 namespace Engmrl\ApiClient;
 
+use Engmrl\ApiClient\Data\Collection;
 use Engmrl\ApiClient\Request\AuthenticateRequest;
 
 use Engmrl\ApiClient\Request\CommentFilterRequest;
@@ -146,6 +147,12 @@ class ApiClient
         }
     }
 
+    /**
+     * @param int $id
+     * @param CommentFilterRequest $request
+     * @return CommentResponse
+     * @throws Exception\ClientException
+     */
     public function commentDetail(int $id, CommentFilterRequest $request)
     {
         try {
@@ -173,15 +180,18 @@ class ApiClient
         return $data[$key];
     }
 
+    /**
+     * @param $response
+     * @param string $key
+     * @param $class
+     * @return array
+     */
     protected function responseCollection($response, $key = 'data', $class)
     {
-        $resp = [];
         $json = $response->getBody()->getContents();
         unset($response);
         $data = \json_decode($json, true);
-        foreach ($data as $r) {
-            $resp[] = new $class($r);
-        }
-        return $resp;
+
+        return new Collection($data, $key, $class);
     }
 }

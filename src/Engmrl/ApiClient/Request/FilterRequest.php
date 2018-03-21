@@ -59,6 +59,15 @@ abstract class FilterRequest implements FilterRequestInterface
     }
 
     /**
+     * @return $this
+     */
+    public function setCount()
+    {
+        $this->queryString['count'] = 1;
+        return $this;
+    }
+
+    /**
      * ?include=user
      *
      * @param array $include
@@ -167,6 +176,18 @@ abstract class FilterRequest implements FilterRequestInterface
     public function setSort(array $sort = [])
     {
         $this->queryString['sort'] = \json_encode($sort);
+        return $this;
+    }
+
+    /**
+     * ?excludes=[1,2,3]
+     *
+     * @param array $excludes
+     * @return $this
+     */
+    public function setExcludes(array $excludes = [])
+    {
+        $this->queryString['excludes'] = \json_encode($excludes);
         return $this;
     }
 
